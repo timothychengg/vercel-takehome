@@ -28,13 +28,12 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const screeningId = formData.get('screeningId');
-    const name = formData.get('name');
     const message = formData.get('message');
     const stars = formData.get('stars');
 
-    if (!screeningId || !name || !message || stars === null) {
+    if (!screeningId || !message || stars === null) {
       return NextResponse.json(
-        { error: 'screeningId, name, message, and stars are required' },
+        { error: 'screeningId, message, and stars are required' },
         { status: 400 }
       );
     }
@@ -46,7 +45,6 @@ export async function POST(request: NextRequest) {
     );
 
     await addEntry(screeningIdStr, {
-      name: String(name).trim(),
       message: String(message).trim(),
       stars: starsNum,
     });

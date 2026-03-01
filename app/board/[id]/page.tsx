@@ -58,22 +58,6 @@ export default async function BoardScreeningPage({ params }: Props) {
           <input type='hidden' name='screeningId' value={id} />
           <div>
             <label
-              htmlFor='name'
-              className='block text-sm font-medium text-white/90'
-            >
-              Name
-            </label>
-            <input
-              id='name'
-              name='name'
-              type='text'
-              required
-              className='mt-1 w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-white/40 focus:border-amber-200/50 focus:outline-none focus:ring-1 focus:ring-amber-200/50'
-              placeholder='Your name'
-            />
-          </div>
-          <div>
-            <label
               htmlFor='message'
               className='block text-sm font-medium text-white/90'
             >
@@ -124,7 +108,7 @@ export default async function BoardScreeningPage({ params }: Props) {
               {entries.map((entry) => (
                 <Review
                   key={entry.id}
-                  name={entry.name}
+                  name={entry.name ?? 'Anonymous'}
                   stars={entry.stars}
                   text={entry.message}
                 />

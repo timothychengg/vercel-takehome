@@ -191,17 +191,17 @@ export default function HomePage() {
 
             <div className='space-y-4'>
               <Review
-                name='Mia'
+                name='Anonymous'
                 stars={5}
                 text='The cinematography was unreal. Ending had me thinking for hours.'
               />
               <Review
-                name='Tim'
+                name='Anonymous'
                 stars={4}
                 text='Loved the score, but the pacing was a bit slow.'
               />
               <Review
-                name='Alex'
+                name='Anonymous'
                 stars={4}
                 text='Cool concept, but the characters felt flat.'
               />

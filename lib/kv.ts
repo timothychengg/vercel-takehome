@@ -11,7 +11,7 @@ export type Screening = {
 export type Entry = {
   id: string;
   screeningId: string;
-  name: string;
+  name?: string; // optional; defaults to "Anonymous"
   message: string;
   stars: number;
   createdAt: string;
@@ -55,6 +55,7 @@ export async function addEntry(
 ): Promise<Entry> {
   const full: Entry = {
     ...entry,
+    name: entry.name?.trim() || undefined,
     id: crypto.randomUUID(),
     screeningId,
     createdAt: new Date().toISOString(),
