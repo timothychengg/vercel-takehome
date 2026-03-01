@@ -2,33 +2,63 @@ import { Redis } from '@upstash/redis';
 
 const redis = Redis.fromEnv();
 
-const ENTRIES_KEY = 'guestbook:entries';
-
-// GuestbookEntry is an object with the following properties:
-export type GuestbookEntry = {
+export type Screening = {
   id: string;
+  movieTitle: string;
+  createdAt: string;
+};
+
+export type Entry = {
+  id: string;
+  screeningId: string;
   name: string;
   message: string;
   stars: number;
   createdAt: string;
 };
 
-// getEntries returns an array of GuestbookEntry objects
-export async function getEntries(): Promise<GuestbookEntry[]> {
-  const raw = await redis.lrange(ENTRIES_KEY, 0, -1);
+function screeningKey(id: string) {
+  return `screening:${id}`;
+}
+
+function entriesKey(screeningId: string) {
+  return `screening:${screeningId}:entries`;
+}
+
+export async function getScreening(id: string): Promise<Screening | null> {
+  const raw = await redis.get(screeningKey(id));
+  if (!raw) return null;
+  return typeof raw === 'string' ? (JSON.parse(raw) as Screening) : (raw as Screening);
+}
+
+export async function createScreening(movieTitle: string): Promise<Screening> {
+  const screening: Screening = {
+    id: crypto.randomUUID(),
+    movieTitle: movieTitle.trim() || 'Untitled Screening',
+    createdAt: new Date().toISOString(),
+  };
+  await redis.set(screeningKey(screening.id), JSON.stringify(screening));
+  return screening;
+}
+
+export async function getEntries(screeningId: string): Promise<Entry[]> {
+  const raw = await redis.lrange(entriesKey(screeningId), 0, -1);
   const entries = (raw ?? []).map((item) =>
-    typeof item === 'string' ? (JSON.parse(item) as GuestbookEntry) : (item as GuestbookEntry)
+    typeof item === 'string' ? (JSON.parse(item) as Entry) : (item as Entry)
   );
   return entries.reverse();
 }
 
-// addEntry adds a new GuestbookEntry object to the database
-export async function addEntry(entry: Omit<GuestbookEntry, 'id' | 'createdAt'>): Promise<GuestbookEntry> {
-  const full: GuestbookEntry = {
+export async function addEntry(
+  screeningId: string,
+  entry: Omit<Entry, 'id' | 'screeningId' | 'createdAt'>
+): Promise<Entry> {
+  const full: Entry = {
     ...entry,
     id: crypto.randomUUID(),
+    screeningId,
     createdAt: new Date().toISOString(),
   };
-  await redis.lpush(ENTRIES_KEY, JSON.stringify(full));
+  await redis.lpush(entriesKey(screeningId), JSON.stringify(full));
   return full;
 }

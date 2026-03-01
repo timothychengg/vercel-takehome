@@ -1,13 +1,8 @@
 import Link from 'next/link';
-import { Review } from '../components/Review';
-import { getEntries } from '@/lib/kv';
 
 export const dynamic = 'force-dynamic';
 
-export default async function BoardPage() {
-  // entries is an array of objects
-  const entries = await getEntries();
-
+export default function BoardPage() {
   return (
     <div>
       <header className='mx-auto max-w-6xl px-5 pt-10'>
@@ -35,91 +30,39 @@ export default async function BoardPage() {
           className='text-3xl font-semibold'
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
-          The board
+          Start a screening
         </h1>
-        <p className='mt-2 text-sm text-white/80'>Leave your reaction!</p>
+        <p className='mt-2 text-sm text-white/80'>
+          Enter the movie title to create a shareable board.
+        </p>
 
         <form
-          action='/api/entries'
+          action='/api/screenings'
           method='POST'
           className='mt-8 w-full max-w-md rounded-xl bg-white/5 border border-white/10 p-6 space-y-4'
         >
           <div>
             <label
-              htmlFor='name'
+              htmlFor='movieTitle'
               className='block text-sm font-medium text-white/90'
             >
-              Name
+              Movie title
             </label>
             <input
-              id='name'
-              name='name'
+              id='movieTitle'
+              name='movieTitle'
               type='text'
-              required
               className='mt-1 w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-white/40 focus:border-amber-200/50 focus:outline-none focus:ring-1 focus:ring-amber-200/50'
-              placeholder='Your name'
+              placeholder='e.g. Interstellar'
             />
-          </div>
-          <div>
-            <label
-              htmlFor='message'
-              className='block text-sm font-medium text-white/90'
-            >
-              Message
-            </label>
-            <textarea
-              id='message'
-              name='message'
-              required
-              rows={3}
-              className='mt-1 w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-white/40 focus:border-amber-200/50 focus:outline-none focus:ring-1 focus:ring-amber-200/50'
-              placeholder='What did you think?'
-            />
-          </div>
-          <div>
-            <label className='block text-sm font-medium text-white/90 mb-2'>
-              Stars (1–5)
-            </label>
-            <select
-              name='stars'
-              required
-              className='w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white focus:border-amber-200/50 focus:outline-none focus:ring-1 focus:ring-amber-200/50'
-            >
-              <option value=''>Select</option>
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n} ★
-                </option>
-              ))}
-            </select>
           </div>
           <button
             type='submit'
             className='w-full rounded-lg bg-[#5b1b1b] px-4 py-3 text-sm font-semibold text-amber-100 border border-amber-200/30 hover:bg-[#6b2222]'
           >
-            Submit reaction
+            Create board →
           </button>
         </form>
-
-        <div className='mt-12 w-full max-w-md'>
-          <h2 className='text-lg font-semibold'>Entries</h2>
-          {entries.length === 0 ? (
-            <p className='mt-4 text-sm text-white/60'>
-              No reactions yet. Be the first!
-            </p>
-          ) : (
-            <div className='mt-4 space-y-4 text-left'>
-              {entries.map((entry) => (
-                <Review
-                  key={entry.id}
-                  name={entry.name}
-                  stars={entry.stars}
-                  text={entry.message}
-                />
-              ))}
-            </div>
-          )}
-        </div>
       </main>
     </div>
   );

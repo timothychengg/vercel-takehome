@@ -39,7 +39,7 @@ export default function HomePage() {
             href='/board'
             className='rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium hover:bg-white/10'
           >
-            Open the board →
+            Start a screening →
           </Link>
         </div>
       </header>
