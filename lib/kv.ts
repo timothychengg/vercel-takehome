@@ -11,7 +11,6 @@ export type Screening = {
 export type Entry = {
   id: string;
   screeningId: string;
-  name?: string; // optional; defaults to "Anonymous"
   message: string;
   stars: number;
   createdAt: string;
@@ -25,6 +24,20 @@ function entriesKey(screeningId: string) {
   return `screening:${screeningId}:entries`;
 }
 
+function summaryKey(screeningId: string) {
+  return `screening:${screeningId}:summary`;
+}
+
+export async function getSummary(screeningId: string): Promise<string | null> {
+  const raw = await redis.get(summaryKey(screeningId));
+  if (!raw) return null;
+  return typeof raw === 'string' ? raw : String(raw);
+}
+
+export async function saveSummary(screeningId: string, summary: string): Promise<void> {
+  await redis.set(summaryKey(screeningId), summary);
+}
+
 export async function getScreening(id: string): Promise<Screening | null> {
   const raw = await redis.get(screeningKey(id));
   if (!raw) return null;
@@ -32,9 +45,13 @@ export async function getScreening(id: string): Promise<Screening | null> {
 }
 
 export async function createScreening(movieTitle: string): Promise<Screening> {
+  const trimmed = movieTitle.trim();
+  if (!trimmed) {
+    throw new Error('Movie title is required');
+  }
   const screening: Screening = {
     id: crypto.randomUUID(),
-    movieTitle: movieTitle.trim() || 'Untitled Screening',
+    movieTitle: trimmed,
     createdAt: new Date().toISOString(),
   };
   await redis.set(screeningKey(screening.id), JSON.stringify(screening));
@@ -55,7 +72,6 @@ export async function addEntry(
 ): Promise<Entry> {
   const full: Entry = {
     ...entry,
-    name: entry.name?.trim() || undefined,
     id: crypto.randomUUID(),
     screeningId,
     createdAt: new Date().toISOString(),

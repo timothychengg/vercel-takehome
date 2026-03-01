@@ -5,10 +5,21 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const movieTitle = formData.get('movieTitle');
+    const trimmed = movieTitle ? String(movieTitle).trim() : '';
 
-    const screening = await createScreening(
-      movieTitle ? String(movieTitle).trim() : 'Untitled Screening'
-    );
+    if (!trimmed) {
+      return NextResponse.json(
+        { error: 'Movie title is required' },
+        { status: 400 }
+      );
+    }
+
+    const screening = await createScreening(trimmed);
+
+    const accept = request.headers.get('Accept') ?? '';
+    if (accept.includes('application/json')) {
+      return NextResponse.json({ id: screening.id });
+    }
 
     return NextResponse.redirect(new URL(`/board/${screening.id}`, request.url));
   } catch (err) {

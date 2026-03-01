@@ -153,31 +153,11 @@ export default function HomePage() {
                   <span className='font-semibold'>Interstellar</span>
                 </div>
 
-                <ul className='mt-5 space-y-2 text-sm text-zinc-800/80'>
-                  <li className='flex items-center gap-2'>
-                    <span className='h-2 w-2 rounded-full bg-emerald-600' />
-                    Most praised:{' '}
-                    <span className='font-medium text-zinc-900'>
-                      Cinematography
-                    </span>
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <span className='h-2 w-2 rounded-full bg-emerald-600' />
-                    Most debated:{' '}
-                    <span className='font-medium text-zinc-900'>Ending</span>
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <span className='h-2 w-2 rounded-full bg-emerald-600' />
-                    Overall tone:{' '}
-                    <span className='font-medium text-zinc-900'>Positive</span>
-                  </li>
-                </ul>
-
                 <div className='mt-5 text-sm text-zinc-800/80'>
                   <span className='font-semibold text-zinc-900'>
                     AI summary:
                   </span>{' '}
-                  Visually stunning, divisive ending
+                  Visually stunning with standout cinematography and score. The ending divided the room—some found it profound, others felt the pacing dragged. Overall positive sentiment.
                 </div>
               </div>
 
@@ -191,17 +171,14 @@ export default function HomePage() {
 
             <div className='space-y-4'>
               <Review
-                name='Anonymous'
                 stars={5}
                 text='The cinematography was unreal. Ending had me thinking for hours.'
               />
               <Review
-                name='Anonymous'
                 stars={4}
                 text='Loved the score, but the pacing was a bit slow.'
               />
               <Review
-                name='Anonymous'
                 stars={4}
                 text='Cool concept, but the characters felt flat.'
               />

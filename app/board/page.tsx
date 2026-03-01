@@ -1,12 +1,21 @@
 import Link from 'next/link';
+import { StartScreeningForm } from './components/StartScreeningForm';
 
 export const dynamic = 'force-dynamic';
 
 export default function BoardPage() {
   return (
-    <div>
+    <div className='relative min-h-screen overflow-x-hidden'>
+      <div
+        className='curtain-left fixed left-0 top-0 bottom-0 w-20 sm:w-28 z-10 pointer-events-none'
+        aria-hidden
+      />
+      <div
+        className='curtain-right fixed right-0 top-0 bottom-0 w-20 sm:w-28 z-10 pointer-events-none'
+        aria-hidden
+      />
       <header className='mx-auto max-w-6xl px-5 pt-10'>
-        <div className='flex items-center justify-center gap-8'>
+        <div className='flex items-center justify-between'>
           <Link href='/' className='flex items-center gap-3 hover:opacity-90'>
             <span className='inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 border border-white/15 text-xs font-semibold'>
               AC
@@ -25,44 +34,36 @@ export default function BoardPage() {
         </div>
       </header>
 
-      <main className='mx-auto max-w-2xl px-5 py-12 text-center flex flex-col items-center'>
-        <h1
-          className='text-3xl font-semibold'
-          style={{ fontFamily: 'var(--font-playfair)' }}
-        >
-          Start a screening
-        </h1>
-        <p className='mt-2 text-sm text-white/80'>
-          Enter the movie title to create a shareable board.
-        </p>
+      <main className='mx-auto max-w-6xl px-5 pb-20'>
+        <section className='mt-8'>
+          <div className='marquee-frame p-4'>
+            <div className='flex justify-center gap-2 px-4 pb-3'>
+              {Array.from({ length: 42 }).map((_, i) => (
+                <span key={i} className='bulb opacity-95' />
+              ))}
+            </div>
 
-        <form
-          action='/api/screenings'
-          method='POST'
-          className='mt-8 w-full max-w-md rounded-xl bg-white/5 border border-white/10 p-6 space-y-4'
-        >
-          <div>
-            <label
-              htmlFor='movieTitle'
-              className='block text-sm font-medium text-white/90'
-            >
-              Movie title
-            </label>
-            <input
-              id='movieTitle'
-              name='movieTitle'
-              type='text'
-              className='mt-1 w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white placeholder-white/40 focus:border-amber-200/50 focus:outline-none focus:ring-1 focus:ring-amber-200/50'
-              placeholder='e.g. Interstellar'
-            />
+            <div className='marquee-inner px-8 py-10 text-center'>
+              <h1
+                className='text-3xl sm:text-4xl font-semibold leading-tight'
+                style={{ fontFamily: 'var(--font-playfair)' }}
+              >
+                Start a screening
+              </h1>
+              <p className='mt-2 text-sm text-zinc-800/80'>
+                Enter the movie title to create a shareable board.
+              </p>
+
+              <StartScreeningForm />
+            </div>
+
+            <div className='flex justify-center gap-2 px-4 pt-3'>
+              {Array.from({ length: 42 }).map((_, i) => (
+                <span key={i} className='bulb opacity-90' />
+              ))}
+            </div>
           </div>
-          <button
-            type='submit'
-            className='w-full rounded-lg bg-[#5b1b1b] px-4 py-3 text-sm font-semibold text-amber-100 border border-amber-200/30 hover:bg-[#6b2222]'
-          >
-            Create board →
-          </button>
-        </form>
+        </section>
       </main>
     </div>
   );
