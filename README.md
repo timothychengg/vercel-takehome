@@ -316,9 +316,7 @@ npm start
 
 ### One-Click Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/aftercredits_pro)
-
-*(Update the repository URL after pushing to GitHub.)*
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/timothychengg/vercel-takehome)
 
 ---
 
