@@ -7,11 +7,11 @@ export default function BoardPage() {
   return (
     <div className='relative min-h-screen overflow-x-hidden'>
       <div
-        className='curtain-left fixed left-0 top-0 bottom-0 w-20 sm:w-28 z-10 pointer-events-none'
+        className='curtain-left hidden sm:block fixed left-0 top-0 bottom-0 w-20 sm:w-28 z-10 pointer-events-none'
         aria-hidden
       />
       <div
-        className='curtain-right fixed right-0 top-0 bottom-0 w-20 sm:w-28 z-10 pointer-events-none'
+        className='curtain-right hidden sm:block fixed right-0 top-0 bottom-0 w-20 sm:w-28 z-10 pointer-events-none'
         aria-hidden
       />
       <header className='mx-auto max-w-6xl px-5 pt-10'>
