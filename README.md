@@ -49,9 +49,9 @@ flowchart TB
 
     subgraph API["API Routes"]
         Screenings["POST /api/screenings"]
-        Entries["GET/POST /api/entries"]
+        Entries["POST /api/entries"]
         Summarize["POST /api/summarize"]
-        Summaries["GET/POST /api/summaries"]
+        Summaries["POST /api/summaries"]
     end
 
     subgraph Storage["Storage"]

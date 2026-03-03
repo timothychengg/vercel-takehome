@@ -130,7 +130,6 @@ export default async function BoardScreeningPage({ params }: Props) {
                       : undefined
                   }
                   initialSummary={savedSummary ?? undefined}
-                  variant='cream'
                 />
               </div>
             </div>

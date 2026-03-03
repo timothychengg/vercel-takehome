@@ -8,7 +8,6 @@ type Props = {
   entryCount: number;
   averageStars?: number;
   initialSummary?: string;
-  variant?: 'default' | 'cream';
 };
 
 export function AudienceSummary({
@@ -17,7 +16,6 @@ export function AudienceSummary({
   entryCount,
   averageStars,
   initialSummary,
-  variant = 'default',
 }: Props) {
   const {
     completion,
@@ -44,30 +42,14 @@ export function AudienceSummary({
     complete('');
   };
 
-  const isCream = variant === 'cream';
-
   return (
-    <div
-      className={
-        isCream
-          ? 'summary-box w-full text-left'
-          : 'w-full max-w-md rounded-xl bg-white/5 border border-white/10 p-6 text-center'
-      }
-    >
-      <div className={isCream ? 'flex items-baseline justify-between gap-4' : 'flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4'}>
-        <h2
-          className={
-            isCream ? 'text-xl font-bold text-zinc-900' : 'text-lg font-semibold'
-          }
-        >
+    <div className='summary-box w-full text-left'>
+      <div className='flex items-baseline justify-between gap-4'>
+        <h2 className='text-xl font-bold text-zinc-900'>
           Audience Summary
         </h2>
         {entryCount === 0 ? (
-          <span
-            className={
-              isCream ? 'text-sm text-zinc-600' : 'text-xs text-white/50'
-            }
-          >
+          <span className='text-sm text-zinc-600'>
             Add reactions first
           </span>
         ) : (
@@ -82,65 +64,26 @@ export function AudienceSummary({
         )}
       </div>
 
-      <div
-        className={
-          isCream
-            ? 'mt-4 grid grid-cols-[minmax(9rem,auto)_1fr] gap-x-4 gap-y-2 items-baseline text-base'
-            : 'mt-3 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 text-sm'
-        }
-      >
-        {isCream ? (
+      <div className='mt-4 grid grid-cols-[minmax(9rem,auto)_1fr] gap-x-4 gap-y-2 items-baseline text-base'>
+        <span className="text-zinc-600">Tonight&apos;s Screening</span>
+        <span className="font-bold text-zinc-900">{movieTitle}</span>
+        {typeof averageStars === 'number' && (
           <>
-            <span className="text-zinc-600">Tonight&apos;s Screening</span>
-            <span className="font-bold text-zinc-900">{movieTitle}</span>
-            {typeof averageStars === 'number' && (
-              <>
-                <span className="text-zinc-600">Average rating</span>
-                <span className="text-zinc-900">{averageStars.toFixed(1)} ★</span>
-              </>
-            )}
-            <span className="font-bold text-zinc-900 pt-1">AI summary</span>
-            <span className={`text-zinc-600 whitespace-pre-wrap pt-1 ${isLoading ? 'animate-pulse' : ''}`}>
-              {completion ?? (isLoading ? 'Summarizing…' : 'Click Generate to create an AI summary of the audience reactions.')}
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="text-white/60">Tonight&apos;s Screening</span>
-            <span className="font-semibold">{movieTitle}</span>
+            <span className="text-zinc-600">Average rating</span>
+            <span className="text-zinc-900">{averageStars.toFixed(1)} ★</span>
           </>
         )}
+        <span className="font-bold text-zinc-900 pt-1">AI summary</span>
+        <span className={`text-zinc-600 whitespace-pre-wrap pt-1 ${isLoading ? 'animate-pulse' : ''}`}>
+          {completion ?? (isLoading ? 'Summarizing…' : 'Click Generate to create an AI summary of the audience reactions.')}
+        </span>
       </div>
-
-      {!isCream && typeof averageStars === 'number' && (
-        <div className="mt-2 text-sm text-white/80">
-          Average rating: {averageStars.toFixed(1)} ★
-        </div>
-      )}
-
-      {!isCream && (
-        <div className="mt-4 min-h-[4rem] text-sm text-white/85">
-          {completion ? (
-            <p>
-              <span className="font-bold">AI summary: </span>
-              <span className="whitespace-pre-wrap">{completion}</span>
-            </p>
-          ) : isLoading ? (
-            <p className="text-white/60 animate-pulse">Summarizing…</p>
-          ) : (
-            <p className="text-white/50">
-              Click Generate to create an AI summary of the audience reactions.
-            </p>
-          )}
-        </div>
-      )}
 
       {error && (
         <p className="mt-4 text-sm text-red-600">
           {error.message}
         </p>
       )}
-
     </div>
   );
 }

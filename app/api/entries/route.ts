@@ -1,28 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getScreening, getEntries, addEntry } from '@/lib/kv';
-
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const screeningId = searchParams.get('screeningId');
-
-    if (!screeningId) {
-      return NextResponse.json(
-        { error: 'screeningId is required' },
-        { status: 400 }
-      );
-    }
-
-    const entries = await getEntries(screeningId);
-    return NextResponse.json(entries);
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json(
-      { error: 'Failed to fetch entries' },
-      { status: 500 }
-    );
-  }
-}
+import { getScreening, addEntry } from '@/lib/kv';
 
 export async function POST(request: NextRequest) {
   try {
