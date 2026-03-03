@@ -1,8 +1,8 @@
-# AfterCredits
+# Room Review
 
 **When the credits roll, what did the room think?**
 
-AfterCredits is a movie screening guestbook that captures audience reactions and uses AI to extract the signal. Start a screening, share the link, and everyone on that board can leave their thoughts and star ratings. AI summarizes the room's reaction into a concise "Audience Summary."
+Room Review is a movie screening guestbook that captures audience reactions and uses AI to extract the signal. Start a screening, share the link, and everyone on that board can leave their thoughts and star ratings. AI summarizes the room's reaction into a concise "Audience Summary."
 
 No accounts. No feeds. One shared board for one shared moment.
 

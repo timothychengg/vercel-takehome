@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 
 export const metadata = {
-  title: "AfterCredits",
+  title: "Room Review",
   description: "A modern movie screening guestbook."
 };
 

@@ -18,10 +18,10 @@ export default function BoardPage() {
         <div className='flex items-center justify-between'>
           <Link href='/' className='flex items-center gap-3 hover:opacity-90'>
             <span className='inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 border border-white/15 text-xs font-semibold'>
-              AC
+              RR
             </span>
             <span className='text-sm font-semibold tracking-tight'>
-              AfterCredits
+              Room Review
             </span>
           </Link>
 

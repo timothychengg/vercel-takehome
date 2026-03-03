@@ -19,10 +19,10 @@ export default function HomePage() {
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-3'>
             <span className='inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 border border-white/15 text-xs font-semibold'>
-              AC
+              RR
             </span>
             <span className='text-sm font-semibold tracking-tight'>
-              AfterCredits
+              Room Review
             </span>
           </div>
 
@@ -65,7 +65,7 @@ export default function HomePage() {
               </h1>
 
               <p className='mt-4 text-sm sm:text-base text-zinc-800/80'>
-                AfterCredits captures the audience reaction and extracts the
+                Room Review captures the audience reaction and extracts the
                 signal using AI.
               </p>
 
@@ -208,7 +208,7 @@ export default function HomePage() {
           </div>
 
           <footer className='mt-14 flex items-center justify-between text-xs text-white/60'>
-            <span>© 2026 AfterCredits.</span>
+            <span>© 2026 Room Review.</span>
             <span>Built with Next.js on Vercel.</span>
           </footer>
         </section>

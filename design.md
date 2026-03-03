@@ -1,4 +1,4 @@
-# AfterCredits — Design Document
+# Room Review — Design Document
 
 **Version:** 1.0  
 **Status:** Implemented (MVP)  
@@ -48,7 +48,7 @@ Movie screenings (friends, film clubs, festivals) often end with scattered react
 
 ### Product Concept
 
-**AfterCredits** — a screening-scoped guestbook. Each screening gets its own board and shareable link. Guests submit reactions (message + 1–5 stars). AI summarizes the room's feedback into an "Audience Summary."
+**Room Review** — a screening-scoped guestbook. Each screening gets its own board and shareable link. Guests submit reactions (message + 1–5 stars). AI summarizes the room's feedback into an "Audience Summary."
 
 ### Core User Flow
 
