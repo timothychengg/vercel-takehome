@@ -6,7 +6,7 @@ Room Review is a movie screening guestbook that captures audience reactions and 
 
 No accounts. No feeds. One shared board for one shared moment.
 
-**[Live Site](https://aftercredits-one.vercel.app/)** · **[GitHub](https://github.com/timothychengg/vercel-takehome)**
+**[Live Site](https://room-review-three.vercel.app/)** · **[GitHub](https://github.com/timothychengg/vercel-takehome)**
 
 ---
 
@@ -79,23 +79,23 @@ flowchart TB
 
 ### Static vs Dynamic
 
-| Route | Rendering | Why |
-|-------|-----------|-----|
-| `/` (Homepage) | **Static** | Pre-rendered at build, served from CDN. No database or user-specific data. |
-| `/board` | **Dynamic** | Creates screenings; needs to write to DB and redirect. |
-| `/board/[id]` | **Dynamic** | Fetches entries and summary from Redis on each request. Live data. |
+| Route          | Rendering   | Why                                                                        |
+| -------------- | ----------- | -------------------------------------------------------------------------- |
+| `/` (Homepage) | **Static**  | Pre-rendered at build, served from CDN. No database or user-specific data. |
+| `/board`       | **Dynamic** | Creates screenings; needs to write to DB and redirect.                     |
+| `/board/[id]`  | **Dynamic** | Fetches entries and summary from Redis on each request. Live data.         |
 
 ---
 
 ## Tech Stack
 
-| Layer | Choice |
-|------|--------|
-| Framework | Next.js 14 (App Router) |
-| Styling | Tailwind CSS |
-| Database | Upstash Redis (KV) |
-| AI | Vercel AI SDK + OpenAI (gpt-4o-mini) |
-| Deployment | Vercel |
+| Layer      | Choice                               |
+| ---------- | ------------------------------------ |
+| Framework  | Next.js 14 (App Router)              |
+| Styling    | Tailwind CSS                         |
+| Database   | Upstash Redis (KV)                   |
+| AI         | Vercel AI SDK + OpenAI (gpt-4o-mini) |
+| Deployment | Vercel                               |
 
 ---
 
@@ -103,29 +103,29 @@ flowchart TB
 
 ### Screening
 
-| Field | Type | Description |
-|-------|------|--------------|
-| `id` | string | UUID |
+| Field        | Type   | Description                   |
+| ------------ | ------ | ----------------------------- |
+| `id`         | string | UUID                          |
 | `movieTitle` | string | Movie title for the screening |
-| `createdAt` | string | ISO timestamp |
+| `createdAt`  | string | ISO timestamp                 |
 
 ### Entry
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | UUID |
+| Field         | Type   | Description      |
+| ------------- | ------ | ---------------- |
+| `id`          | string | UUID             |
 | `screeningId` | string | Parent screening |
-| `message` | string | Guest's reaction |
-| `stars` | number | 1–5 rating |
-| `createdAt` | string | ISO timestamp |
+| `message`     | string | Guest's reaction |
+| `stars`       | number | 1–5 rating       |
+| `createdAt`   | string | ISO timestamp    |
 
 ### Redis Keys
 
-| Key | Type | Purpose |
-|-----|------|---------|
-| `screening:{id}` | string (JSON) | Screening metadata |
-| `screening:{id}:entries` | list | Entry objects (JSON strings) |
-| `screening:{id}:summary` | string | Cached AI summary |
+| Key                      | Type          | Purpose                      |
+| ------------------------ | ------------- | ---------------------------- |
+| `screening:{id}`         | string (JSON) | Screening metadata           |
+| `screening:{id}:entries` | list          | Entry objects (JSON strings) |
+| `screening:{id}:summary` | string        | Cached AI summary            |
 
 ---
 
@@ -149,9 +149,9 @@ app/
 │       └── page.tsx            # Board: form + entries + AI summary
 └── api/
     ├── screenings/route.ts     # POST — create screening
-    ├── entries/route.ts        # GET — list entries; POST — add entry
+    ├── entries/route.ts        # POST — add entry
     ├── summarize/route.ts      # POST — streaming AI summary
-    └── summaries/route.ts      # GET/POST — fetch/save summary
+    └── summaries/route.ts     # POST — save summary
 
 lib/
 └── kv.ts                       # Redis: getScreening, createScreening, getEntries, addEntry, getSummary, saveSummary
